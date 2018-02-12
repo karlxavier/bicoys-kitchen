@@ -86,7 +86,10 @@
 }
 .slick-prev:before
 {
-    content: '←';
+    /*content: '←';*/
+    content: "\f104";
+    font: 40px/1 'FontAwesome';
+    font-size: 60px;
 }
 [dir='rtl'] .slick-prev:before
 {
@@ -104,7 +107,10 @@
 }
 .slick-next:before
 {
-    content: '→';
+    /*content: '→';*/
+    content: "\f105";
+    font: 40px/1 'FontAwesome';
+    font-size: 60px;
 }
 [dir='rtl'] .slick-next:before
 {
