@@ -1,8 +1,8 @@
 class Admins::RegistrationsController < Devise::RegistrationsController
   # disable default no_authentication action
-  skip_before_action :require_no_authentication, only: [:new, :create, :cancel]
-  # now we need admin to register new admin
-  prepend_before_action :authenticate_scope!, only: [:new, :create, :cancel]
+  # skip_before_action :require_no_authentication, only: [:new, :create, :cancel]
+  # # now we need admin to register new admin
+  # prepend_before_action :authenticate_scope!, only: [:new, :create, :cancel]
 
   protected
 
