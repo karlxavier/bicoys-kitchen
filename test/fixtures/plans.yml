@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  weekday_id: 1
+  plan_status_id: 1
+  plan_for_date: 2018-02-05
+
+two:
+  weekday_id: 1
+  plan_status_id: 1
+  plan_for_date: 2018-02-05

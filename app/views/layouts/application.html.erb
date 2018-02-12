@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Bicoys Kitchen</title>
+    <%= csrf_meta_tags %>
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+
+    <link href="//fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" rel="stylesheet" type="text/css">
+    <link href="//fonts.googleapis.com/css?family=Raleway:400,700,800&amp;subsetting=all" rel="stylesheet" type="text/css">
+    <link href="//fonts.googleapis.com/css?family=Open+Sans:400italic,400,800,700,300" rel="stylesheet" type="text/css">
+    <link href="//fonts.googleapis.com/css?family=Pacifico" rel="stylesheet">
+
+  </head>
+
+  <body>
+    <div class="navbar-wrapper">
+        <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+            <div class="container">
+                <div class="navbar-header page-scroll">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="index.html">[bicoys kitchen logo]</a>
+                </div>
+                <div id="navbar" class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><%= link_to 'Home', root_path %></li>
+                        <% if user_signed_in? %>
+                        <li>
+                          <a data-toggle="dropdown" class="dropdown-toggle" href="#" aria-expanded="false">
+                              My Account<b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu animated fadeInRight m-t-xs">
+                              <li class="divider"></li>
+                              <li><%= link_to destroy_user_session_path, :method => :delete, style: "font-size: 12px;" do %><i class="fa fa-mail-forward" aria-hidden="true" style="margin-right: 8px;"></i> Logout<% end %></li>
+                          </ul>                     
+                        </li>
+                      <% else %>
+                        <li>
+                          <%= link_to 'Login', new_user_session_path %>
+                        </li>
+                      <% end %>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </div>
+    
+    <%= yield %>
+
+    <script type="text/javascript">
+      $(document).ready(function () {
+
+          $('body').scrollspy({
+              target: '.navbar-fixed-top',
+              offset: 80
+          });
+
+          // Page scrolling feature
+          $('a.page-scroll').bind('click', function(event) {
+              var link = $(this);
+              $('html, body').stop().animate({
+                  scrollTop: $(link.attr('href')).offset().top - 50
+              }, 500);
+              event.preventDefault();
+              $("#navbar").collapse('hide');
+          });
+      });
+
+      var cbpAnimatedHeader = (function() {
+          var docElem = document.documentElement,
+                  header = document.querySelector( '.navbar-default' ),
+                  didScroll = false,
+                  changeHeaderOn = 200;
+          function init() {
+              window.addEventListener( 'scroll', function( event ) {
+                  if( !didScroll ) {
+                      didScroll = true;
+                      setTimeout( scrollPage, 250 );
+                  }
+              }, false );
+          }
+          function scrollPage() {
+              var sy = scrollY();
+              if ( sy >= changeHeaderOn ) {
+                  $(header).addClass('navbar-scroll')
+              }
+              else {
+                  $(header).removeClass('navbar-scroll')
+              }
+              didScroll = false;
+          }
+          function scrollY() {
+              return window.pageYOffset || docElem.scrollTop;
+          }
+          init();
+
+      })();
+
+      // Activate WOW.js plugin for animation on scrol
+      new WOW().init();
+    </script>
+  </body>
+</html>
