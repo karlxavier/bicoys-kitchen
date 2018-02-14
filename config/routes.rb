@@ -28,4 +28,6 @@ Rails.application.routes.draw do
   get '/admins/plan_meal/:plan_meal_id/menu/:menu_id' => 'admins/meal_menus#create', :as => 'create_meal_menu'
   get '/admins/pm/:plan_meal_id/m/:menu_id' => 'admins/meal_menus#destroy', :as => 'delete_meal_menu'
 
+  get 'privacy_policy' => 'homes#privacy_policy', as: 'privacy_policy'
+
 end

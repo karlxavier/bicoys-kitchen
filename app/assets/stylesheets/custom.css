@@ -3932,3 +3932,12 @@ a.text-primary:hover, a.text-primary:focus {
     display: -ms-flexbox!important;
     display: flex!important;
 }
+
+.policy-title {
+    color: #099E44!important;
+    color: inherit;
+    display: block;
+    font-size: 18px;
+    font-weight: 600;
+}
+
