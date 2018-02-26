@@ -21,16 +21,6 @@ Devise.setup do |config|
 
   config.omniauth :facebook, ENV["FB_APP_ID"], ENV["FB_SECRET"], scope: "email"
 
-  # User.omniauth_providers.each do |provider_name|
-  #   if provider_name == :developer
-  #     config.omniauth :developer
-  #   else
-  #     api_key = "1750726818531501"
-  #     api_secret = "df6218a6e961de5deb67eae08e100f96"
-  #     config.omniauth provider_name, api_key, api_secret
-  #   end
-  # end
-
 
   config.case_insensitive_keys = [:email]
 
