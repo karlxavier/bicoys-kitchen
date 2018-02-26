@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180212152304) do
+ActiveRecord::Schema.define(version: 20180226200052) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -30,6 +30,20 @@ ActiveRecord::Schema.define(version: 20180212152304) do
     t.datetime "updated_at", null: false
     t.index ["email"], name: "index_admins_on_email", unique: true
     t.index ["reset_password_token"], name: "index_admins_on_reset_password_token", unique: true
+  end
+
+  create_table "identities", force: :cascade do |t|
+    t.bigint "user_id"
+    t.string "provider"
+    t.string "uid"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "accesstoken"
+    t.string "refreshtoken"
+    t.string "urls"
+    t.string "name"
+    t.string "email"
+    t.index ["user_id"], name: "index_identities_on_user_id"
   end
 
   create_table "meal_menus", force: :cascade do |t|
@@ -54,6 +68,14 @@ ActiveRecord::Schema.define(version: 20180212152304) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "order_item_plans", force: :cascade do |t|
+    t.integer "plan_id"
+    t.integer "plan_meal_id"
+    t.integer "order_item_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "order_items", force: :cascade do |t|
     t.integer "plan_id"
     t.integer "plan_meal_id"
@@ -63,6 +85,7 @@ ActiveRecord::Schema.define(version: 20180212152304) do
     t.integer "order_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.decimal "total_price", precision: 30, scale: 10
   end
 
   create_table "order_statuses", force: :cascade do |t|
@@ -105,6 +128,13 @@ ActiveRecord::Schema.define(version: 20180212152304) do
   create_table "plan_meals", force: :cascade do |t|
     t.integer "plan_id"
     t.integer "meal_type_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "plan_orders", force: :cascade do |t|
+    t.integer "order_id"
+    t.integer "weekday_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -154,4 +184,5 @@ ActiveRecord::Schema.define(version: 20180212152304) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "identities", "users"
 end

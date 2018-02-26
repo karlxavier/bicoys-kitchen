@@ -1,0 +1,70 @@
+<div class="sk-spinner sk-spinner-double-bounce">
+    <div class="sk-double-bounce1"></div>
+    <div class="sk-double-bounce2"></div>
+</div>
+<% if order.order_items.exists? %>
+	<div class="scroll_content" style="overflow: hidden; width: auto; max-height: 50vh;">
+		<% order.order_items.each do |oi| %>
+            <% oi.plans.each do |plan| %>
+                <strong><%= plan.weekday.name %></strong>
+            <% end %>
+		<% end %>
+	</div>
+
+    <div class="ibox-footer textContainer" style="margin-top: 15px;">
+    	<div class="row">
+    		<div class="col-lg-6">
+    			<h5>Subtotal</h5>
+    		</div>
+    		<div class="col-lg-6">
+    			<div class="text-right">
+    				<h5>
+    				₱ <%= number_with_precision(order.subtotal, :precision => 0, :delimiter => ',') %>
+    				</h5>
+    			</div>
+    		</div>
+            <div class="col-lg-6">
+                <h5>Delivery Charge</h5>
+            </div>
+            <div class="col-lg-6">
+                <div class="text-right">
+                    <h5>₱ 0</h5>
+                </div>
+            </div>
+    		<div class="col-lg-6">
+    			<h4>Total</h4>
+    		</div>
+    		<div class="col-lg-6">
+    			<div class="text-right">
+    				<h4>₱ <%= number_with_precision(order.total, :precision => 0, :delimiter => ',') %></h4>
+    			</div>
+    		</div>
+    	</div>
+        
+        <div class="m-t-sm" style="margin-bottom: 10px;">
+                <%= link_to checkout_path, class: "btn btn-block btn-primary" do %>
+    				<i class="fa fa-shopping-cart"></i> Checkout
+                <% end %>
+        </div>
+        <span class="text-muted small" style="margin-top: 10px; text-align: center;">
+            <strong>Note: </strong> This is .
+        </span>
+    </div>
+<% else %>
+	<p class="text-center" style="color: #999c9e;">
+		<i class="fa fa-shopping-basket fa-5x"></i> 
+	</p>
+	<h3 class="text-center" style="color: #999c9e;">You dont have orders yet.</h3>
+<% end %>
+<script>
+
+    $(document).ready(function () {
+        $('.scroll_content').slimscroll({
+            height: '50%'
+        })
+        $('.close-sk').on('click', function(){
+            $('#sk-orders').children('.ibox-content').addClass('sk-loading');
+        })
+    });
+
+</script>

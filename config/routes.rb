@@ -18,6 +18,14 @@ Rails.application.routes.draw do
 				omniauth_callbacks: 'users/omniauth_callbacks' }
 
   resources :plans, except: [:new, :create, :destroy]
+  
+  resources :orders, except: [:destroy]
+  resources :order_items
+
+  get 'checkout', :to => 'orders#checkout', :as => :checkout
+
+
+   match '/users/:id/finish_signup' => 'users#finish_signup', via: [:get, :patch], :as => :finish_signup
 
 	namespace :admins do
 		get '/', to: 'dashboards#index', as: ''

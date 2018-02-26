@@ -16,18 +16,36 @@ Devise.setup do |config|
 
   require 'devise/orm/active_record'
 
-  config.omniauth :facebook, ENV["FB_KEY"], ENV["FB_SECRET"], scope: "email"
+  # config.omniauth :facebook, ENV["FB_APP_ID"], ENV["FB_SECRET"], callback_url: ENV["FB_CALLBACK"]
+  # , callback_path: "https://hh2.herokuapp.com/users/auth/facebook/callback"
 
-  # Configure the class responsible to send e-mails.
-  # config.mailer = 'Devise::Mailer'
+  config.omniauth :facebook, ENV["FB_APP_ID"], ENV["FB_SECRET"], scope: "email"
 
-  # Configure the parent class responsible to send e-mails.
-  # config.parent_mailer = 'ActionMailer::Base'
+  # User.omniauth_providers.each do |provider_name|
+  #   if provider_name == :developer
+  #     config.omniauth :developer
+  #   else
+  #     api_key = "1750726818531501"
+  #     api_secret = "df6218a6e961de5deb67eae08e100f96"
+  #     config.omniauth provider_name, api_key, api_secret
+  #   end
+  # end
 
-  # ==> ORM configuration
-  # Load and configure the ORM. Supports :active_record (default) and
-  # :mongoid (bson_ext recommended) by default. Other ORMs may be
-  # available as additional gems.
+
+  config.case_insensitive_keys = [:email]
+
+  # Configure which authentication keys should have whitespace stripped.
+  # These keys will have whitespace before and after removed upon creating or
+  # modifying a user and when used to authenticate or find a user. Default is :email.
+  config.strip_whitespace_keys = [:email]
+
+  config.skip_session_storage = [:http_auth]
+
+  config.stretches = Rails.env.test? ? 1 : 11
+
+  config.reconfirmable = true
+
+  config.expire_all_remember_me_on_sign_out = true
 
 
   # ==> Configuration for any authentication mechanism
@@ -50,12 +68,12 @@ Devise.setup do |config|
   # Configure which authentication keys should be case-insensitive.
   # These keys will be downcased upon creating or modifying a user and when used
   # to authenticate or find a user. Default is :email.
-  config.case_insensitive_keys = [:email]
+  # config.case_insensitive_keys = [:email]
 
   # Configure which authentication keys should have whitespace stripped.
   # These keys will have whitespace before and after removed upon creating or
   # modifying a user and when used to authenticate or find a user. Default is :email.
-  config.strip_whitespace_keys = [:email]
+  # config.strip_whitespace_keys = [:email]
 
   # Tell if authentication through request.params is enabled. True by default.
   # It can be set to an array that will enable params authentication only for the
@@ -86,7 +104,7 @@ Devise.setup do |config|
   # Notice that if you are skipping storage for all authentication paths, you
   # may want to disable generating routes to Devise's sessions controller by
   # passing skip: :sessions to `devise_for` in your config/routes.rb
-  config.skip_session_storage = [:http_auth]
+  # config.skip_session_storage = [:http_auth]
 
   # By default, Devise cleans up the CSRF token on authentication to
   # avoid CSRF token fixation attacks. This means that, when using AJAX
@@ -109,7 +127,7 @@ Devise.setup do |config|
   # a value less than 10 in other environments. Note that, for bcrypt (the default
   # algorithm), the cost increases exponentially with the number of stretches (e.g.
   # a value of 20 is already extremely slow: approx. 60 seconds for 1 calculation).
-  config.stretches = Rails.env.test? ? 1 : 11
+  # config.stretches = Rails.env.test? ? 1 : 11
 
   # Set up a pepper to generate the hashed password.
   # config.pepper = '17ea9bddf79196a1bd7bfcb0debe59cf19c0ae86d3d36a56583bc449d7b2e228eec956741c9b3e2e7a4f0ac26f1ce11a62cbeb355eda1d5257b519a5ce49e451'
@@ -140,7 +158,7 @@ Devise.setup do |config|
   # initial account confirmation) to be applied. Requires additional unconfirmed_email
   # db field (see migrations). Until confirmed, new email is stored in
   # unconfirmed_email column, and copied to email column on successful confirmation.
-  config.reconfirmable = true
+  # config.reconfirmable = true
 
   # Defines which key will be used when confirming an account
   # config.confirmation_keys = [:email]
@@ -150,7 +168,7 @@ Devise.setup do |config|
   # config.remember_for = 2.weeks
 
   # Invalidates all the remember me tokens when the user signs out.
-  config.expire_all_remember_me_on_sign_out = true
+  # config.expire_all_remember_me_on_sign_out = true
 
   # If true, extends the user's remember period when remembered via cookie.
   # config.extend_remember_period = false
@@ -256,7 +274,7 @@ Devise.setup do |config|
   # up on your models and hooks.
   # config.omniauth :github, 'APP_ID', 'APP_SECRET', scope: 'user,public_repo'
 
-  config.omniauth :facebook, "APP_ID", "APP_SECRET"
+  # config.omniauth :facebook, "APP_ID", "APP_SECRET"
 
   # ==> Warden configuration
   # If you want to use other strategies, that are not supported by Devise, or

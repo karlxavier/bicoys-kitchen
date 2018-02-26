@@ -1,0 +1,50 @@
+<% plans.each do |plan| %>
+    <div id="cat<%= plan.id %>" style="margin-top: 20px;">
+        <div class="ibox-title" style="border-style: none; padding-left: 8px;">
+            <h4><%= plan.weekday.name %></h4>
+        </div>
+        <div class="ibox-content" id="menus" style="display: block; padding: 15px 0 0 0;">
+            <% plan.plan_meals.each do |pm| %>
+                <div style="margin-left: 20px;">
+                    <span><h4 class="text-muted"><%= pm.meal_type.name %></h4></span>
+                    <table class="table shoping-cart-table">
+                        <tbody>
+                            <% pm.menus.each do |menu| %>
+                                <tr>
+                                    <td width="80">
+                                        <%= image_tag menu.image.url(:web) || asset_path('default_menu.png'), class: "img-circle", style: "width: 80px; height: 80px;" %>
+                                    </td>
+                                    <td class="desc">
+                                        <h4 class="text-navy">
+                                            <%= menu.name %>
+                                        </h4>
+                                        <h5>
+                                            ₱ <%= number_with_precision(menu.price, :precision => 2, :delimiter => ',') %>
+                                        </h5>
+                                        <p class="small">
+                                            <%= menu.description %>
+                                        </p>
+                                    </td>
+                                    <td>
+                                        <%= form_for order_item, remote: true do |f| %>      
+                                            <div class="input-group">
+                                              <%= f.hidden_field :quantity, value: 1, min: 1 %>
+                                              <%= f.hidden_field :plan_id, value: plan.id %>
+                                              <%= f.hidden_field :plan_meal_id, value: pm.id %>
+                                              <div class="input-group-btn">
+                                                <%= f.hidden_field :menu_id, value: menu.id %>
+                                                <%= f.submit "Add", class: "btn btn-outline btn-primary add-sk" %>            
+                                              </div>
+                                            </div>
+                                        <% end %>   
+                                    </td>
+                                </tr>
+                            <% end %>
+                        </tbody>
+                    </table>
+                </div>
+            <% end %>
+
+        </div>
+    </div>
+<% end %>

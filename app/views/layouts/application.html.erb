@@ -39,11 +39,12 @@
                               <% if user_signed_in? %>
                               <li>
                                 <a data-toggle="dropdown" class="dropdown-toggle" href="#" aria-expanded="false">
-                                    My Account<b class="caret"></b>
-                                  </a>
-                                  <ul class="dropdown-menu animated fadeInRight m-t-xs">
-                                    <li class="divider"></li>
-                                    <li><%= link_to destroy_user_session_path, :method => :delete, style: "font-size: 12px;" do %><i class="fa fa-mail-forward" aria-hidden="true" style="margin-right: 8px;"></i> Logout<% end %></li>
+                                  My Account<b class="caret"></b>
+                                </a>
+                                <ul class="dropdown-menu animated fadeInRight m-t-xs">
+                                  <li><a href="#">My Orders</a></li>
+                                  <li class="divider"></li>
+                                  <li><%= link_to destroy_user_session_path, :method => :delete, style: "font-size: 12px;" do %><i class="fa fa-mail-forward" aria-hidden="true" style="margin-right: 8px;"></i> Logout<% end %></li>
                                 </ul>                     
                               </li>
                             <% else %>
