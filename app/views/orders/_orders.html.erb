@@ -4,19 +4,33 @@
 </div>
 <% if order.order_items.exists? %>
 	<div class="scroll_content" style="overflow: hidden; width: auto; max-height: 50vh;">
-        <% order.order_items.each do |oi| %>
-    		<div class="alert alert-info alert-dismissable" style="margin-bottom: 5px; ">
-                <%= link_to oi, { method: :delete, remote: true } do %>
-                    <button aria-hidden="true" data-dismiss="alert" class="close close-sk" type="button">×</button>
-                <% end %>
-                <span><%= oi.menu.name %></span>
-                <div style="float: right;">
-                    <span class="small">
-                        ₱ <%= number_with_precision(oi.unit_price, :precision => 0, :delimiter => ',') %> x <%= oi.quantity %>
-                    </span>
-                </div>
-            </div>
-        <% end %>
+
+            <% order.p_orders.uniq.each do |plan| %>
+
+                    <h3><%= plan.weekday.name %></h3>
+            		
+                    <% plan.pm_orders.uniq.each_with_index do |pm, i| %>
+                        <span>
+                            <i class="fa fa-circle <%= i == 0 ? 'text-navy' : 'text-warning' %>"></i> 
+                            <strong><%= pm.meal_type.name %></strong>
+                        </span>
+                        <% pm.order_items.each do |oi| %>
+                            <div class="alert alert-info alert-dismissable" style="margin: 0 0 5px 20px; ">
+                                <%= link_to oi, { method: :delete, remote: true } do %>
+                                    <button aria-hidden="true" data-dismiss="alert" class="close close-sk" type="button">×</button>
+                                <% end %>
+                                <span><%= oi.menu.name %></span>
+                                <div style="float: right;">
+                                    <span class="small">
+                                        ₱ <%= number_with_precision(oi.unit_price, :precision => 0, :delimiter => ',') %> x <%= oi.quantity %>
+                                    </span>
+                                </div>
+                            </div>
+                        <% end %>
+                    <% end %>
+
+            <% end %>
+
 	</div>
 
     <div class="ibox-footer textContainer" style="margin-top: 15px;">

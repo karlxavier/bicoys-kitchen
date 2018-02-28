@@ -3,7 +3,7 @@ class ApplicationController < ActionController::Base
   helper_method :current_order
 
   def current_order
-  	Order.where(user_id: current_user.id).first || Order.new
+  	Order.order_menus(current_user.id) || Order.new
   end
 
 end

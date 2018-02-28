@@ -7,7 +7,8 @@ class OrderItemsController < ApplicationController
 	    respond_to do |format|
 	    	# Check if order item exists in (order.id, plan.id, meal_type.id)
 
-	    	if !@order.order_items.exists?(menu_id: params[:order_item][:menu_id], order_id: @order.id)
+	    	# if !@order.order_items.exists?(menu_id: params[:order_item][:menu_id], order_id: @order.id)
+	    	if !@order.order_items.exists?(menu_id: params[:order_item][:menu_id], order_id: @order.id, plan_id: params[:order_item][:plan_id], plan_meal_id: params[:order_item][:plan_meal_id])
 	    		@order.save
 		    else
 		    	menu_item = @order.order_items.where(menu_id: params[:order_item][:menu_id], order_id: @order.id).first

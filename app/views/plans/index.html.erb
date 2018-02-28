@@ -1,10 +1,10 @@
 <div class="landing-page" style="margin-top: 100px;">
 	<section class="container">
 		<div class="row">
-			<div class="col-xs-8 resto-menus" style="padding: 0;">
+			<div class="col-xs-7 resto-menus" style="padding: 0;">
 				<div class="panel-body">
                     <div class="row">
-                    	<div class="col-md-3 menu-cats">
+                    	<div class="col-md-2 menu-cats">
                     		<div class="ibox" id="sk-cats" data-spy="affix" data-offset-top="150" data-clampedwidth=".col-xs-3">
 		               
 		                        <div style="width: 150px;">
@@ -18,7 +18,7 @@
 		                        </div>
 		                    </div>
                     	</div>
-                    	<div class="col-md-9" style="padding: 0;">
+                    	<div class="col-md-10" style="padding: 0;">
                     		<div class="ibox collapsed border-bottom" id="sk-menus">
                     			<%= render 'menus/each_menus', plans: @plans, order_item: @order_item %>
                     		</div>
@@ -27,7 +27,7 @@
                 </div>
 			</div>
 			<div class="cart-summary">
-	            <div class="col-xs-4" style="padding-left: 0;" id="order-holder">
+	            <div class="col-xs-5" style="padding-left: 0;" id="order-holder">
 	            	<div class="wrapper-content" style="padding-bottom: 0;">
 	    	        	<div class="ibox" id="sk-orders">
 	    	                <div class="ibox-title">
@@ -49,3 +49,25 @@
 		</div>
 	</section>
 </div>
+<script type="text/javascript">
+    $(document).on("turbolinks:load", function () { 
+       
+        $('#sk-orders').affix({
+	      offset: {
+	        top: 100
+	      }
+	    });
+
+	    $('#sk-cats').affix({
+	      offset: {
+	        top: 100
+	      }
+	    });
+
+	    $(window).scroll(function () {
+	        $('.ibox.affix').width($('#order-holder').width());
+	    });
+	            
+	});
+
+</script>
